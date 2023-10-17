@@ -1,15 +1,45 @@
 <script setup>
+    import { RouterLink, useRoute } from 'vue-router';
+    import {computed} from 'vue';
+    const route = useRoute();
 
+    const paginaInicio = computed(() => route.name === 'inicio' );
 </script>
 
 <template>
-    <header>
+    <header
+        class="bg-slate-800"
+        :class="{header : paginaInicio}"
+    >
         <div class="mx-auto container px-5 py-16">
-            <div>
-
+            <div class="flex justify-between items-center">
+                <div>
+                    <RouterLink
+                        :to="{name:'inicio'}"
+                    >
+                        <img class="w-32" src="/img/logo.svg" alt="Logotipo">
+                    </RouterLink>
+                </div>
+                <nav class="flex gap-4">
+                    <RouterLink
+                        :to="{name:'inicio'}"
+                        class="uppercase text-white font-bold"
+                        active-class="text-orange-500"
+                    >
+                        Inicio
+                    </RouterLink>
+                    <RouterLink
+                        :to="{name:'favoritos'}"
+                        class="uppercase text-white font-bold"
+                        active-class="text-orange-500"
+                    >
+                        Favoritos
+                    </RouterLink>
+                </nav>
             </div>
             <form 
                 class="md:w-1/2 2xl:w-1/3 bg-orange-400 my-32 p-10 rounded-lg shadow space-y-6 "
+                v-if="paginaInicio" 
             >
                 <div class="space-y-4">
                     <label 
@@ -47,3 +77,10 @@
 </template>
 
 
+<style>
+    .header {
+        background-image: url('img/bg.jpg');
+        background-size: cover;
+        background-position:center;
+    }
+</style>
